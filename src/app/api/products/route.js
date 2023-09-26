@@ -9,6 +9,7 @@ export async function GET() {
     let data = [];
     let success = true;
     try {
+        console.log(dbconnect);
         await mongoose.connect(dbconnect);
         data = await Product.find();
     } catch (error) {
