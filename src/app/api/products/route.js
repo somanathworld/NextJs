@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { NextResponse } from "next/server";
-import { dbconnect } from '../../../../utils/db';
+//import { dbconnect } from '../../../../utils/db';
 import { Product } from '../../../../utils/model/product';
 
 
@@ -9,7 +9,7 @@ export async function GET() {
     let data = [];
     let success = true;
     try {
-        console.log(dbconnect);
+        const dbconnect = "mongodb+srv://root:root@cluster0.spoizjd.mongodb.net/practicedb?retryWrites=true&w=majority"
         await mongoose.connect(dbconnect);
         data = await Product.find();
     } catch (error) {
