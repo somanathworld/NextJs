@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import Order from '../../../../utils/model/Order';
 import mongoose from 'mongoose';
-import { dbconnect } from '../../../../utils/dbConnet';
-import { getProductById } from '@/app/serverside/getProducts';
+import { dbconnect } from '../../../../utils/db';
+import Order from '../../../../utils/model/Order';
+import { Product } from '../../../../utils/model/product';
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 export async function POST (request){
@@ -13,7 +13,7 @@ export async function POST (request){
         await mongoose.connect(dbconnect);
 
         for(let product in body.cart){
-            let prodDetails = await getProductById(product);
+            let prodDetails = await Product.findById({_id : product});
             //check the product is out of stock
             if(body.cart[product]['qty'] > prodDetails.stock){
                 return NextResponse.json({error :"Some items in your cart got out of stock, try again later!"});
