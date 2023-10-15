@@ -55,8 +55,8 @@ export async function POST (request){
                 },
             ],
             mode: 'payment',
-             success_url: `http://localhost:3000/orderconfirmation?oid=${body.oid}`,
-             cancel_url: `http://localhost:3000/checkout`,
+             success_url: body.successUrl,
+             cancel_url: body.failureUrl,
         });
         return NextResponse.json({url : session.url})
     } catch (err) {
